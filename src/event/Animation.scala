@@ -1,0 +1,5 @@
+package event
+
+class Animation {
+
+}
