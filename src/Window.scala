@@ -3,27 +3,30 @@ import java.awt.event.{KeyEvent, KeyListener}
 import javax.swing.JFrame
 
 import asciiPanel.AsciiPanel
+import engine.Engine
+import ui.{GameState, Screen}
 
 object Window extends JFrame() with KeyListener {
 
   def main (args: Array[String]): Unit = {
     Window.setVisible(true)
+    val engine = new Engine(screen)
+    engine.run()
   }
-
-  val terminal = new AsciiPanel()
-  add(terminal)
-  pack()
-  addKeyListener(this)
-  repaint()
 
   setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
   setBackground(Color.BLACK)
   setTitle("ScalaRL")
 
-  override protected def repaint(): Unit = {
-    terminal.clear()
-    terminal.writeCenter("HELLO!!!1", 10)
-    super.repaint()
+  val screen = new Screen(requestRepaint)
+  val terminal = new AsciiPanel()
+  add(terminal)
+  pack()
+  addKeyListener(this)
+
+  private def requestRepaint(gameState: GameState): Unit = {
+    screen.paint(terminal, gameState)
+    repaint()
   }
 
   override protected def keyPressed(e: KeyEvent): Unit = {

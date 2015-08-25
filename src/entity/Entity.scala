@@ -6,3 +6,8 @@ abstract class Entity {
 
   def update(): Action
 }
+
+object Entity {
+
+
+}
