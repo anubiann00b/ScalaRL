@@ -1,6 +1,8 @@
 package event
 
-class FollowupAction(action: Action) {
+import event.action.Action
+
+class FollowupAction(val action: Action) {
 }
 
 object FollowupAction {

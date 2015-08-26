@@ -10,7 +10,6 @@ object Window extends JFrame() with KeyListener {
 
   def main (args: Array[String]): Unit = {
     Window.setVisible(true)
-    val engine = new Engine(screen)
     engine.run()
   }
 
@@ -24,13 +23,15 @@ object Window extends JFrame() with KeyListener {
   pack()
   addKeyListener(this)
 
+  val engine = new Engine(screen)
+
   private def requestRepaint(gameState: GameState): Unit = {
     screen.paint(terminal, gameState)
     repaint()
   }
 
   override protected def keyPressed(e: KeyEvent): Unit = {
-
+    engine.keyPress(e)
   }
 
   override protected def keyTyped(e: KeyEvent): Unit = ()
