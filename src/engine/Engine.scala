@@ -23,9 +23,7 @@ class Engine(screen: Screen) {
 
     while(true) {
       for (entity <- entities) {
-        println("awaiting")
         val action = Await.result(entity.getAction(), Duration.Inf)
-        println("done")
 
         for (outcome <- action.outcomes) {
           outcome.resolve(repaint)

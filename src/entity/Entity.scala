@@ -16,7 +16,3 @@ abstract class Entity(private var _pos: Pos, val glyph: Char) {
     promise.future
   }
 }
-
-object Entity {
-
-}

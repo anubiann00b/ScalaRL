@@ -11,7 +11,6 @@ class Screen(val requestRedraw: (GameState) => Unit) {
   }
 
   def paint(terminal: AsciiPanel, gameState: GameState): Unit = {
-    println("paint")
     terminal.clear()
     for (i <- 1 to 80) {
       for (j <- 1 to 24) {
