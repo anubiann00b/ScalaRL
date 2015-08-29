@@ -23,7 +23,7 @@ object Window extends JFrame() with KeyListener {
   addKeyListener(this)
 
   val screen = new Screen(terminal, repaint)
-  val engine = new Engine(screen)
+  val engine = new Engine(screen.paint)
 
   override protected def keyPressed(e: KeyEvent): Unit = {
     engine.keyPress(e)
