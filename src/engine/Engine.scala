@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent
 
 import engine.world.World
 import entity.{Entity, Player, Pos}
-import ui.{GameState, Screen}
+import ui.Screen
 
 import scala.collection.mutable
 import scala.concurrent.Await
@@ -33,7 +33,7 @@ class Engine(screen: Screen) {
   }
 
   def repaint(): Unit = {
-    screen.requestRedraw(new GameState(world, entities.toList))
+    screen.paint(world, entities.toList)
   }
 
   def keyPress(e: KeyEvent): Unit = {

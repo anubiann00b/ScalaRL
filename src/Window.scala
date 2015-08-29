@@ -4,7 +4,7 @@ import javax.swing.JFrame
 
 import asciiPanel.AsciiPanel
 import engine.Engine
-import ui.{GameState, Screen}
+import ui.Screen
 
 object Window extends JFrame() with KeyListener {
 
@@ -17,18 +17,13 @@ object Window extends JFrame() with KeyListener {
   setBackground(Color.BLACK)
   setTitle("ScalaRL")
 
-  val screen = new Screen(requestRepaint)
   val terminal = new AsciiPanel()
   add(terminal)
   pack()
   addKeyListener(this)
 
+  val screen = new Screen(terminal, repaint)
   val engine = new Engine(screen)
-
-  private def requestRepaint(gameState: GameState): Unit = {
-    screen.paint(terminal, gameState)
-    repaint()
-  }
 
   override protected def keyPressed(e: KeyEvent): Unit = {
     engine.keyPress(e)
