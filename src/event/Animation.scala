@@ -1,5 +1,0 @@
-package event
-
-class Animation {
-
-}

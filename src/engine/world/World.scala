@@ -1,8 +1,12 @@
 package engine.world
 
+import entity.Pos
+
 import scala.util.Random
 
 class World {
+  def getTile(destPos: Pos): Tile = tiles(destPos.x)(destPos.y)
+
   def shuffle(): Unit = {
     for (i <- 1 to 80) {
       for (j <- 1 to 24) {

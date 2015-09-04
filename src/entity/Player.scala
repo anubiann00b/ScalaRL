@@ -27,6 +27,7 @@ class Player(_pos: Pos, glyph: Char) extends Entity(_pos, glyph) {
         null
       }
     }
+
     val action = getAction()
     if (action != null) {
       currentPromise.get.success(action)

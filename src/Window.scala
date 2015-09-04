@@ -8,7 +8,7 @@ import ui.Screen
 
 object Window extends JFrame() with KeyListener {
 
-  def main (args: Array[String]): Unit = {
+  def main(args: Array[String]): Unit = {
     Window.setVisible(true)
     engine.run()
   }
@@ -23,7 +23,7 @@ object Window extends JFrame() with KeyListener {
   addKeyListener(this)
 
   val screen = new Screen(terminal, repaint)
-  val engine = new Engine(screen.paint)
+  val engine = new Engine(terminal, screen.paint)
 
   override protected def keyPressed(e: KeyEvent): Unit = {
     engine.keyPress(e)

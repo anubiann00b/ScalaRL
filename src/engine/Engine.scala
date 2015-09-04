@@ -2,20 +2,25 @@ package engine
 
 import java.awt.event.KeyEvent
 
+import asciiPanel.AsciiPanel
 import engine.world.World
 import entity.{Entity, Player, Pos}
+import event.outcome.Outcome
+import ui.GameState
 
 import scala.collection.mutable
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
-class Engine(paint: (World, List[Entity]) => Unit) {
+class Engine(terminal: AsciiPanel, paint: (GameState) => Unit) {
 
   val world = new World()
   val entities: mutable.MutableList[Entity] = mutable.MutableList()
   val player = new Player(new Pos(5,5), '@')
 
-  val repaint = () => paint(world, entities.toList): Unit
+  def gameState: GameState = new GameState(world, entities.toList)
+
+  val repaint = () => paint(gameState): Unit
 
   entities += player
 
@@ -26,8 +31,15 @@ class Engine(paint: (World, List[Entity]) => Unit) {
       for (entity <- entities) {
         val action = Await.result(entity.getAction(), Duration.Inf)
 
+        var nextOutcome: Outcome = Outcome.NONE
         for (outcome <- action.outcomes) {
-          outcome.resolve(repaint)
+          nextOutcome = outcome
+          while (nextOutcome != Outcome.NONE) {
+            for (anim <- nextOutcome.animations) {
+              anim.draw(terminal, repaint)
+            }
+            nextOutcome = nextOutcome.resolve(repaint, gameState)
+          }
         }
       }
     }

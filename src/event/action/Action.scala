@@ -1,5 +1,5 @@
 package event.action
 
-import event.Outcome
+import event.outcome.Outcome
 
 class Action(val outcomes: List[Outcome])
